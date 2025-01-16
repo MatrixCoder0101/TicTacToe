@@ -1,40 +1,55 @@
 name: Release DEV
 
 on:
+  push:
+    tags:
+      - 'v*'  # Match tags like v1.0, v2.1.0, etc.
   workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout code
       - uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js environment
       - uses: ./.github/actions/setup-node-environment
         with:
           node-version: '20'
           cache-path: 'node_modules'
           cache-key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      # Step 3: Setup Expo environment
       - uses: ./.github/actions/setup-expo
         with:
           expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: npm i
+
+      # Step 5: Build APK for development
       - name: Build development
-        run: npm run build:android-dev
+        run: npm run build:android-preview
         env:
           EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
+
+      # Step 6: Create GitHub Release
       - name: Create GitHub Release
-        uses: actions/create-release@v1
+        uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: App Release v${{ github.run_number }} - ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
           body: |
-            WIP development pre-release
+            This is a Development Release
           draft: false
-          prerelease: true
+          prerelease: false
+
+      # Step 7: Upload APK to GitHub Release
       - name: Upload apk to GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload v${{ github.run_number }} ./app-release.apk
-
+        run: gh release upload ${{ github.ref_name }} ./app-release.apk

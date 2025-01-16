@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import Game from './index.tsx'
+import Reminder from '@/components/Reminder'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -32,6 +33,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <StatusBar style="auto" />
       <Game />
+      <Reminder />
     </ThemeProvider>
   );
 }
