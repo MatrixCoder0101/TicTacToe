@@ -8,7 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
+    "test": "jest",
     "lint": "expo lint",
     "build:android-dev": "eas build -p android --local --profile development --output app-release.apk",
     "build:android-preview": "eas build -p android --local --profile preview --output app-preview.apk",
