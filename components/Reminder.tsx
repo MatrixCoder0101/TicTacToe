@@ -31,7 +31,7 @@ export default function Reminder() {
 
   const openRepo = () => {
     // Open GitHub repository in the browser
-    Linking.openURL('https://github.com/your-username/your-repo'); // Replace with your actual repo URL
+    Linking.openURL('https://github.com/MatrixCoder0101/TicTacToe'); // Replace with your actual repo URL
     closePopup();
   };
 
