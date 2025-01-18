@@ -50,13 +50,13 @@ export default function ResultPopup({ visible, winner, onRestart }: ResultPopupP
   if (!visible) return null;
 
   const backgroundColor = '#2D3748'; // Neutral dark gray background
-  const winnerText = winner === 'O' ? '🎉 You Win!' : winner === 'X' ? '🤖 AI Wins!' : '🤝 It’s a Draw!';
+  const winnerText = winner === 'O' ? '🎉 You Won!' : winner === 'X' ? 'You Lost!' : 'It’s a Draw!';
   const subText =
     winner === 'O'
-      ? 'Congratulations! You beated the AI.'
+      ? '🎉 Congratulations! You beated the AI.'
       : winner === 'X'
-      ? 'Hehe the AI wins! Try again.'
-      : 'Play another round?';
+      ? '😂 Hehe the AI wins! Try again.'
+      : 'Its a tie! Play another round?';
 
   return (
     <Modal transparent visible={visible} animationType="none">
